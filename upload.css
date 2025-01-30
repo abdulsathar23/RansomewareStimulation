@@ -1,0 +1,139 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #ff7eb3, #ff758c);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.container h2 {
+    font-size: 2rem;
+    color: #ff6f91;
+    margin-bottom: 1.5rem;
+}
+
+#folderInput {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    color: #555;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#folderInput:hover {
+    background-color: #ffeef3;
+    border-color: #ff6f91;
+}
+
+.file-grid {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: center;
+}
+
+.file-grid div {
+    background-color: #fef5f7;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ffc3cf;
+    width: 100%;
+    max-width: 500px;
+    font-size: 0.9rem;
+}
+
+.file-grid div span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-grid div button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    color: #fff;
+    background-color: #ff6f91;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.file-grid div button:hover {
+    background-color: #e65d7a;
+    transform: translateY(-2px);
+}
+
+.file-grid div button:active {
+    background-color: #cc4c66;
+    transform: translateY(0);
+}
+
+button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #ff6f91;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 2rem;
+}
+
+button:hover {
+    background-color: #e65d7a;
+    transform: translateY(-2px);
+}
+
+button:active {
+    background-color: #cc4c66;
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .container {
+        width: 90%;
+        padding: 1.5rem;
+    }
+
+    .container h2 {
+        font-size: 1.6rem;
+    }
+
+    .file-grid div {
+        font-size: 0.85rem;
+    }
+
+    button {
+        width: 100%;
+    }
+}

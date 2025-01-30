@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ransom Message</title>
+    <style>
+        body {
+            background-color: #7A1C1C;
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: #B7262F;
+            padding: 20px;
+            border: 3px solid #7A1C1C;
+            border-radius: 10px;
+        }
+        .header {
+            text-align: center;
+        }
+        .header h1 {
+            color: #fff;
+            font-size: 36px;
+            margin: 0;
+        }
+        .section {
+            background-color: white;
+            color: black;
+            margin-top: 10px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .section h2 {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+        }
+        .section p {
+            margin: 0;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .bitcoin {
+            background-color: #EBC400;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .bitcoin p {
+            color: black;
+            font-weight: bold;
+        }
+        .bitcoin-address {
+            background-color: #fff;
+            color: black;
+            font-size: 18px;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        button {
+            background-color: #C7BEBF;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #B8A4A5;
+        }
+        .timer {
+            margin-top: 20px;
+            color: yellow;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .about-bitcoin {
+            margin-top: 20px;
+        }
+        a {
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Ooops, your files have been encrypted!</h1>
+        </div>
+
+        <div class="section">
+            <h2>What Happened to My Computer?</h2>
+            <p>Your important files are encrypted. Many of your documents, photos, videos, databases, and other files are no longer accessible because they have been encrypted. Maybe you are busy looking for a way to recover your files, but do not waste your time. Nobody can recover your files without our decryption service.</p>
+        </div>
+
+        <div class="section">
+            <h2>Can I Recover My Files?</h2>
+            <p>Sure. We guarantee that you can recover all your files safely and easily. But you have not so enough time. You can decrypt some of your files for free. Try now by clicking &lt;Decrypt&gt;. But if you want to decrypt all your files, you need to pay. You have 3 days to submit the payment. After that, the price will be doubled. Also, if you don't pay in 7 days, you won't be able to recover your files forever.</p>
+        </div>
+
+        <div class="section">
+            <h2>How Do I Pay?</h2>
+            <p>Payment is accepted in Bitcoin only. For more information, click <a href="./About.html">About Bitcoin</a>.</p>
+            <p class="warning">Payment will be raised on 11/05/2024 02:28:57</p>
+            <p class="warning">Your files will be lost on 11/10/2024 02:28:57</p>
+        </div>
+
+        <div class="bitcoin">
+            <p>Send $300 worth of bitcoin to this address:</p>
+            <div class="bitcoin-address">12bYDPgwueZ9NyMgw51gp7AA8isjr6SMw</div>
+        </div>
+
+        <div class="timer">
+            Time left until payment increase: <span id="paymentTimer">Loading...</span><br>
+            Time left until files are lost: <span id="fileLossTimer">Loading...</span>
+        </div>
+
+        <div class="buttons"> 
+            <button onclick="redirectToPaymentPage()">Payment</button>
+        </div>
+
+    </div>
+
+    <script>
+        function redirectToPaymentPage() {
+            window.location.href = "./payment.html";
+        }
+
+        function countdownTimer(endTime, elementId) {
+            const countDownDate = new Date(endTime).getTime();
+            
+            const timerInterval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countDownDate - now;
+
+                if (distance < 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById(elementId).innerHTML = "Expired";
+                } else {
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    document.getElementById(elementId).innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+                }
+            }, 1000);
+        }
+        function redirectToDecryptPage() {
+            window.location.href = "./Decryptionpage.html";
+        }
+        window.onload = function() {
+            countdownTimer("November 5, 2024 02:28:57", "paymentTimer");
+            countdownTimer("November 5, 2024 02:28:57", "fileLossTimer");
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Folder for Encryption</title>
+    <link rel="stylesheet" href="upload.css">
+</head>
+<body>
+    <div class="overlay">
+        <div class="container">
+            <h2>Upload Folder for Encryption</h2>
+            <input type="file" id="folderInput" webkitdirectory directory multiple>
+            <div id="fileList" class="file-grid"></div>
+            <button onclick="encryptFiles()">Encrypt & View Encrypted Files</button>
+        </div>
+    </div>
+    <script src="./encrypt.js"></script>
+</body>
+</html>

